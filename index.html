@@ -49,11 +49,15 @@
   </div>
 
   <script>
-    let cart = [];
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCart();
-    }
+    let cart = let cart = JSON.parse(localStorage.getItem("cart")) || [];
+updateCart();
+
+   function addToCart(name, price) {
+  cart.push({ name, price });
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
 
     function updateCart() {
       let cartItems = document.getElementById("cart-items");
