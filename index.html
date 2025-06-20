@@ -47,10 +47,18 @@
     <ul id="cart-items"></ul>
     <p><strong>Totale:</strong> <span id="total">0</span>€</p>
   </div>
+  <button onclick="clearCart()">Svuota carrello</button>
+
 
   <script>
     let cart = let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCart();
+    function clearCart() {
+  cart = [];
+  localStorage.removeItem("cart");
+  updateCart();
+}
+
 
    function addToCart(name, price) {
   cart.push({ name, price });
