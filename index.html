@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Il Mio E-commerce</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    .cart { margin-top: 20px; border: 1px solid green; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Benvenuto nel mio negozio!</h1>
+
+  <div class="product">
+    <h2>Maglietta</h2>
+    <p>Prezzo: 15€</p>
+    <button onclick="addToCart('Maglietta', 15)">Aggiungi al carrello</button>
+  </div>
+
+  <div class="product">
+    <h2>Felpa</h2>
+    <p>Prezzo: 25€</p>
+    <button onclick="addToCart('Felpa', 25)">Aggiungi al carrello</button>
+  </div>
+
+  <div class="cart" id="cart">
+    <h3>Carrello</h3>
+    <ul id="cart-items"></ul>
+    <p><strong>Totale:</strong> <span id="total">0</span>€</p>
+  </div>
+
+  <script>
+    let cart = [];
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      let cartItems = document.getElementById("cart-items");
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item.name + " - " + item.price + "€";
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      document.getElementById("total").textContent = total;
+    }
+  </script>
+</body>
+</html>
