@@ -13,6 +13,8 @@
 </head>
 <body>
   <h1>Benvenuto nel mio negozio!</h1>
+  <div id="product-list" class="product-container"></div>
+
 
   <div class="product-container"> 
   <div class="product">
@@ -91,6 +93,24 @@
 
   // 5. Mostra il carrello iniziale appena si apre la pagina
   updateCart();
+</script>
+<script>
+fetch('products.json')
+  .then(response => response.json())
+  .then(products => {
+    const container = document.getElementById('product-list');
+    products.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.innerHTML = `
+        <img src="${p.immagine}" alt="${p.nome}" width="200">
+        <h2>${p.nome}</h2>
+        <p>Prezzo: ${p.prezzo}€</p>
+        <button onclick="addToCart('${p.nome}', ${p.prezzo})">Aggiungi al carrello</button>
+      `;
+      container.appendChild(div);
+    });
+  });
 </script>
 
  
