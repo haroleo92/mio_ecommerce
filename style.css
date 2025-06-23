@@ -10,25 +10,34 @@ h1 {
 }
 
 .product {
-  display: flex;
+  display: inline-block; /* o flexbox/grid se necessario */
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  text-align: center;
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
   background-color: #fff;
-  width: 220px;
+  width: 200px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
   height: 100%;
   box-sizing: border-box;
+  vertical-align: top;  
 }
 
 
 .product img {
   border-radius: 8px;
   margin-bottom: 10px;
+  width: 100%;
+  height: auto; /* mantiene le proporzioni */
+  object-fit: cover; /* oppure 'contain' */
+}
+prezzo {
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 button {
@@ -46,9 +55,10 @@ button:hover {
 
 #cart {
   margin-top: 30px;
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 10px;
+  background-color:#28a745; 
+  padding:8px 12px;
+  border: none;
+  cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
 }
 .product-container {
