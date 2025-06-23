@@ -101,7 +101,7 @@ function addToCart(nome, prezzo) {
   updateCart();
 </script>
 <script>
-fetch('products.json')
+  fetch('products.json')
   .then(response => response.json())
   .then(products => {
     const container = document.getElementById('product-list');
@@ -112,11 +112,19 @@ fetch('products.json')
         <img src="${p.immagine}" alt="${p.nome}" width="200">
         <h2>${p.nome}</h2>
         <p>Prezzo: ${p.prezzo}€</p>
-        <button onclick="addToCart('${p.nome}', ${p.prezzo})">Aggiungi al carrello</button>
+        <button>Aggiungi al carrello</button>
       `;
+
+      // Aggiungi l'evento al bottone appena creato
+      const btn = div.querySelector('button');
+      btn.addEventListener('click', () => addToCart(p.nome, p.prezzo));
+
       container.appendChild(div);
     });
   });
+
+  <p>Prezzo: ${p.prezzo}€</p>
+        <button onclick="addToCart('${p.nome}', ${p.prezzo})">Aggiungi al carrello</button> `;
 </script>
 
  
