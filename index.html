@@ -13,6 +13,10 @@
 </head>
 <body>
   <h1>Benvenuto nel mio negozio!</h1>
+  <p style="text-align: center;">
+  <a href="carrello.html">Vai al carrello</a>
+</p>
+
   <div id="product-list" class="product-container"></div>
 
 
@@ -26,27 +30,27 @@
 
 <div class="product">
 <img src="cappello.jpg.jpg" alt="Cappello" width="200">
- <h2>Cappello</h2>
+ <h3>Cappello</h3>
   <p>Prezzo: 10€</p>
   <button onclick="addToCart('Cappello', 10)">Aggiungi al carrello</button>
 </div>
 
 <div class="product">
   <img src="occhiali.jpg.jpg" alt="Occhiali" width="200">
-<h2>Occhiali da sole</h2>
+<h4>Occhiali da sole</h4>
   <p>Prezzo: 30€</p>
   <button onclick="addToCart('Occhiali da sole', 30)">Aggiungi al carrello</button>
 </div>
  <div class="product">
     <img src="felpa.jpg.jpg" alt="Felpa" width="200">
 
-    <h2>Felpa</h2>
+    <h5>Felpa</h5>
     <p>Prezzo: 25€</p>
     <button onclick="addToCart('Felpa', 25)">Aggiungi al carrello</button>
   </div>
   <div class="cart-container"> 
   <div class="cart" id="cart">
-    <h3>Carrello</h3>
+    <h6>Carrello</h6>
     <ul id="cart-items"></ul>
     <p><strong>Totale:</strong> <span id="total">0</span>€</p>
   </div>
