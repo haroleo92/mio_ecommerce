@@ -1,10 +1,5 @@
 [
   {
-    "nome": "Maglietta",
-    "prezzo": 20,
-    "immagine": "maglietta.jpg.jpg"
-  },
-  {
     "nome": "Felpa",
     "prezzo": 35,
     "immagine": "felpa.jpg.jpg"
