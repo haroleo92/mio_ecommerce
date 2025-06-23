@@ -75,11 +75,20 @@
   }
 
   // 3. Funzione per aggiungere al carrello
-  function addToCart(name, price) {
-    cart.push({ name, price });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCart();
+  <script>
+function addToCart(nome, prezzo) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const existing = cart.find(item => item.nome === nome);
+  if (existing) {
+    existing.quantita += 1;
+  } else {
+    cart.push({ nome, prezzo, quantita: 1 });
   }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${nome} aggiunto al carrello`);
+}
 
   // 4. Funzione per svuotare il carrello
   function clearCart() {
