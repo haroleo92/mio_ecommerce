@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Il tuo carrello</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Carrello</h1>
+  <div id="cart"></div>
+  <button onclick="clearCart()">Svuota carrello</button>
+  <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartDiv = document.getElementById('cart');
+      if (cart.length === 0) {
+        cartDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
+        return;
+      }
+
+      let html = "<ul>";
+      let totale = 0;
+      cart.forEach(item => {
+        html += `<li>${item.nome} - ${item.prezzo}€</li>`;
+        totale += item.prezzo;
+      });
+      html += `</ul><p><strong>Totale: ${totale}€</strong></p>`;
+      cartDiv.innerHTML = html;
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      loadCart();
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
