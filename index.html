@@ -4,92 +4,115 @@
   <meta charset="UTF-8">
   <title>Il Mio E-commerce</title>
   <link rel="stylesheet" href="style.css">
-  </head>
-<style>
-    body { font-family: sans-serif; padding: 20px; }
-    .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-    .cart { margin-top: 20px; border: 1px solid green; padding: 10px; }
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .cart {
+      margin-top: 20px;
+      border: 1px solid green;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
   <h1>Benvenuto nel mio negozio!</h1>
+  
+  <!-- Link alla pagina carrello.html -->
   <p style="text-align: center;">
-  <a href="carrello.html">Vai al carrello</a>
-</p>
+    <a href="carrello.html">Vai al carrello</a>
+  </p>
 
+  <!-- Lista prodotti -->
   <div id="product-list" class="product-container"></div>
 
-
-  <div class="product-container"> 
-  <div class="product">
-<img src="scarpe.jpg.jpg" alt="Scarpe" width="200">
-  <h2>Scarpe da ginnastica</h2>
-  <p>Prezzo: 50€</p>
-  <button onclick="addToCart('Scarpe da ginnastica', 50)">Aggiungi al carrello</button>
-</div>
-
-<div class="product">
-<img src="cappello.jpg.jpg" alt="Cappello" width="200">
- <h3>Cappello</h3>
-  <p>Prezzo: 10€</p>
-  <button onclick="addToCart('Cappello', 10)">Aggiungi al carrello</button>
-</div>
-
-<div class="product">
-  <img src="occhiali.jpg.jpg" alt="Occhiali" width="200">
-<h4>Occhiali da sole</h4>
-  <p>Prezzo: 30€</p>
-  <button onclick="addToCart('Occhiali da sole', 30)">Aggiungi al carrello</button>
-</div>
- <div class="product">
-    <img src="felpa.jpg.jpg" alt="Felpa" width="200">
-
-    <h5>Felpa</h5>
-    <p>Prezzo: 25€</p>
-    <button onclick="addToCart('Felpa', 25)">Aggiungi al carrello</button>
-  </div>
-  <div class="cart-container"> 
-  <div class="cart" id="cart">
-    <h6>Carrello</h6>
-    <ul id="cart-items"></ul>
-    <p><strong>Totale:</strong> <span id="total">0</span>€</p>
-    <button onclick="clearCart()">Svuota carrello"</button>
+  <!-- Prodotti inseriti manualmente -->
+  <div class="product-container">
+    <div class="product">
+      <img src="scarpe.jpg.jpg" alt="Scarpe" width="200">
+      <h2>Scarpe da ginnastica</h2>
+      <p>Prezzo: 50€</p>
+      <button onclick="addToCart('Scarpe da ginnastica', 50)">Aggiungi al carrello</button>
     </div>
-   <script>
-  // 1. Carico dal localStorage
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // 2. Funzione per aggiornare la visualizzazione del carrello
-  function updateCart() {
-    let cartItems = document.getElementById("cart-items");
-    cartItems.innerHTML = '';
-    let total = 0;
-    cart.forEach(item => {
-      let li = document.createElement("li");
-      li.textContent = item.nome + " - " + item.prezzo + "€";
-      total += item.prezzo;
+    <div class="product">
+      <img src="cappello.jpg.jpg" alt="Cappello" width="200">
+      <h3>Cappello</h3>
+      <p>Prezzo: 10€</p>
+      <button onclick="addToCart('Cappello', 10)">Aggiungi al carrello</button>
+    </div>
 
-    });
-    document.getElementById("total").textContent = total;
-  }
+    <div class="product">
+      <img src="occhiali.jpg.jpg" alt="Occhiali" width="200">
+      <h4>Occhiali da sole</h4>
+      <p>Prezzo: 30€</p>
+      <button onclick="addToCart('Occhiali da sole', 30)">Aggiungi al carrello</button>
+    </div>
 
-  // 3. Funzione per aggiungere al carrello
-  function addToCart(nome, prezzo) {
-  cart.push({ nome, prezzo, quantita: 1 });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCart();
-}
-   // 4. Funzione per svuotare il carrello
-  function clearCart() {
-    cart = [];
-    localStorage.removeItem("cart");
+    <div class="product">
+      <img src="felpa.jpg.jpg" alt="Felpa" width="200">
+      <h5>Felpa</h5>
+      <p>Prezzo: 25€</p>
+      <button onclick="addToCart('Felpa', 25)">Aggiungi al carrello</button>
+    </div>
+  </div>
+
+  <!-- Carrello visualizzato nella stessa pagina -->
+  <div class="cart-container">
+    <div class="cart" id="cart">
+      <h6>Carrello</h6>
+      <ul id="cart-items"></ul>
+      <p><strong>Totale:</strong> <span id="total">0</span>€</p>
+      <button onclick="clearCart()">Svuota carrello</button>
+    </div>
+  </div>
+
+  <!-- Script per la logica JS -->
+  <script>
+    // 1. Carico il carrello dal localStorage (se esiste)
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // 2. Funzione che aggiorna la lista visuale del carrello
+    function updateCart() {
+      let cartItems = document.getElementById("cart-items");
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item.nome + " - " + item.prezzo + "€";
+        cartItems.appendChild(li); // AGGIUNGE l'elemento alla lista
+        total += item.prezzo;
+      });
+
+      // Mostra il totale con 2 cifre decimali
+      document.getElementById("total").textContent = total.toFixed(2).replace('.', ',');
+    }
+
+    // 3. Aggiunge un prodotto al carrello
+    function addToCart(nome, prezzo) {
+      cart.push({ nome, prezzo, quantita: 1 });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCart();
+    }
+
+    // 4. Svuota completamente il carrello
+    function clearCart() {
+      cart = [];
+      localStorage.removeItem("cart");
+      updateCart();
+    }
+
+    // 5. Carica il carrello all’apertura della pagina
     updateCart();
-  }
-
-  // 5. Mostra il carrello iniziale appena si apre la pagina
-  updateCart();
-   </script>
-    
+  </script>
 </body>
-  
 </html>
+
+  
