@@ -89,36 +89,8 @@
 
   // 5. Mostra il carrello iniziale appena si apre la pagina
   updateCart();
-
-
+   </script>
     
-  function addToCart(nome, prezzo) {
-    try {
-      // Recupera il carrello esistente oppure inizializza uno nuovo
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      // Cerca se l'articolo è già presente
-      const existingItem = cart.find(item => item.nome === nome);
-
-      if (existingItem) {
-        existingItem.quantita += 1;
-      } else {
-        cart.push({ nome, prezzo, quantita: 1 });
-      }
-
-      // Salva il nuovo stato del carrello
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      // Notifica all'utente
-      alert(`${nome} aggiunto al carrello`);
-    } catch (error) {
-      console.error('Errore durante l\'aggiunta al carrello:', error);
-      alert('Si è verificato un errore. Riprova.');
-    }
- 
-</script>
-
-
- 
 </body>
+  
 </html>
