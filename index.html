@@ -73,10 +73,9 @@
     });
     document.getElementById("total").textContent = total;
   }
-
+<script>
   // 3. Funzione per aggiungere al carrello
-  <script>
-function addToCart(nome, prezzo) {
+  function addToCart(nome, prezzo) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   const existing = cart.find(item => item.nome === nome);
