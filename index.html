@@ -123,7 +123,7 @@
 
   <p>Prezzo: ${p.prezzo}€</p>
         <button onclick="addToCart('${p.nome}', ${p.prezzo})"> Aggiungi al Carrello </button> `;
-  <script>
+  
   function addToCart(nome, prezzo) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
