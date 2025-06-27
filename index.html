@@ -56,87 +56,32 @@
   </div>
   <button onclick="clearCart()">Svuota carrello</button>
 
-<script>
-  // 1. Carico dal localStorage
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  // 2. Funzione per aggiornare la visualizzazione del carrello
-  function updateCart() {
-    let cartItems = document.getElementById("cart-items");
-    cartItems.innerHTML = '';
-    let total = 0;
-    cart.forEach(item => {
-      let li = document.createElement("li");
-      li.textContent = item.name + " - " + item.price + "€";
-      cartItems.appendChild(li);
-      total += item.price;
-    });
-    document.getElementById("total").textContent = total;
-  }
-   
-  // 3. Funzione per aggiungere al carrello
+    <script>
   function addToCart(nome, prezzo) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    try {
+      // Recupera il carrello esistente oppure inizializza uno nuovo
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  const existing = cart.find(item => item.nome === nome);
-  if (existing) {
-    existing.quantita += 1;
-  } else {
-    cart.push({ nome, prezzo, quantita: 1 });
-  }
+      // Cerca se l'articolo è già presente
+      const existingItem = cart.find(item => item.nome === nome);
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  alert(`${nome} aggiunto al carrello`);
-}
+      if (existingItem) {
+        existingItem.quantita += 1;
+      } else {
+        cart.push({ nome, prezzo, quantita: 1 });
+      }
 
-  // 4. Funzione per svuotare il carrello
-  function clearCart() {
-    cart = [];
-    localStorage.removeItem("cart");
-    updateCart();
-  }
+      // Salva il nuovo stato del carrello
+      localStorage.setItem('cart', JSON.stringify(cart));
 
-  // 5. Mostra il carrello iniziale appena si apre la pagina
-  updateCart();
-
-  fetch('products.json')
-  .then(response => response.json())
-  .then(products => {
-    const container = document.getElementById('product-list');
-    products.forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'product';
-      div.innerHTML = `
-        <img src="${p.immagine}" alt="${p.nome}" width="200">
-        <h2>${p.nome}</h2>
-        <p>Prezzo: ${p.prezzo}€</p>
-        <button>Aggiungi al carrello</button>
-      `;
-
-      // Aggiungi l'evento al bottone appena creato
-      const btn = div.querySelector('button');
-      btn.addEventListener('click', () => addToCart(p.nome, p.prezzo));
-
-      container.appendChild(div);
-    });
-  });
-
- 
-        <button onclick="addToCart('${p.nome}', ${p.prezzo})"> Aggiungi al Carrello </button> `;
-  
-  function addToCart(nome, prezzo) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const existing = cart.find(item => item.nome === nome);
-    if (existing) {
-      existing.quantita += 1;
-    } else {
-      cart.push({ nome, prezzo, quantita: 1 });
+      // Notifica all'utente
+      alert(`${nome} aggiunto al carrello`);
+    } catch (error) {
+      console.error('Errore durante l\'aggiunta al carrello:', error);
+      alert('Si è verificato un errore. Riprova.');
     }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${nome} aggiunto al carrello`);
   }
+
 
 </script>
 
