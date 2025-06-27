@@ -9,32 +9,26 @@
   <h1>Carrello</h1>
   <div id="cart"></div>
   <button onclick="clearCart()">Svuota carrello</button>
+
   <script>
     function loadCart() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartDiv = document.getElementById('cart');
-  if (cart.length === 0) {
-    cartDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
-    return;
-  }
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartDiv = document.getElementById('cart');
 
-  let html = "<ul>";
-  let totale = 0;
-  cart.forEach(item => {
-    const subTotale = item.prezzo * item.quantita;
-    html += `<li>${item.nome} – ${item.quantita}x – ${subTotale}€</li>`;
-    totale += subTotale;
-  });
-  html += `</ul><p><strong>Totale: ${totale}€</strong></p>`;
-  cartDiv.innerHTML = html;
-}
+      if (cart.length === 0) {
+        cartDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
+        return;
+      }
 
       let html = "<ul>";
       let totale = 0;
+
       cart.forEach(item => {
-        html += `<li>${item.nome} - ${item.prezzo}€</li>`;
-        totale += item.prezzo;
+        const subTotale = item.prezzo * (item.quantita || 1);
+        html += `<li>${item.nome} – ${item.quantita || 1}x – ${subTotale}€</li>`;
+        totale += subTotale;
       });
+
       html += `</ul><p><strong>Totale: ${totale}€</strong></p>`;
       cartDiv.innerHTML = html;
     }
@@ -48,3 +42,4 @@
   </script>
 </body>
 </html>
+
