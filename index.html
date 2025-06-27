@@ -81,9 +81,27 @@
       alert('Si è verificato un errore. Riprova.');
     }
   }
+function updateCart() {
+  const cartItems = document.getElementById("cart-items");
+  const totalSpan = document.getElementById("total");
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.nome} - ${item.prezzo}€ x ${item.quantita}`;
+    cartItems.appendChild(li);
+    total += item.prezzo * item.quantita;
+  });
+
+  totalSpan.textContent = total.toFixed(2); // mostra 2 cifre decimali
+}
 
 
 </script>
+
 
  
 </body>
