@@ -125,6 +125,21 @@ function addToCart(nome, prezzo) {
 
   <p>Prezzo: ${p.prezzo}€</p>
         <button onclick="addToCart('${p.nome}', ${p.prezzo})"> Aggiungi al Carrello </button> `;
+  <script>
+  function addToCart(nome, prezzo) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existing = cart.find(item => item.nome === nome);
+    if (existing) {
+      existing.quantita += 1;
+    } else {
+      cart.push({ nome, prezzo, quantita: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${nome} aggiunto al carrello`);
+  }
+
 </script>
 
  
