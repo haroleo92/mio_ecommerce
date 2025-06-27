@@ -8,15 +8,16 @@
     "nome": "Scarpe da ginnastica",
     "prezzo": 50,
     "immagine": "scarpe.jpg.jpg"
-  }
- {
+  },
+  {
     "nome": "Occhiali da sole",
     "prezzo": 50,
     "immagine": "occhiali.jpg.jpg"
-  }
-   {
+  },
+  {
     "nome": "Cappello",
     "prezzo": 50,
     "immagine": "cappello.jpg.jpg"
-  } 
+  }
 ]
+
