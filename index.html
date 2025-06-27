@@ -66,21 +66,20 @@
     let total = 0;
     cart.forEach(item => {
       let li = document.createElement("li");
-      li.textContent = item.name + " - " + item.price + "€";
-      cartItems.appendChild(li);
-      total += item.price;
+      li.textContent = item.nome + " - " + item.prezzo + "€";
+      total += item.prezzo;
+
     });
     document.getElementById("total").textContent = total;
   }
 
   // 3. Funzione per aggiungere al carrello
-  function addToCart(name, price) {
-    cart.push({ name, price });
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCart();
-  }
-
-  // 4. Funzione per svuotare il carrello
+  function addToCart(nome, prezzo) {
+  cart.push({ nome, prezzo, quantita: 1 });
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+   // 4. Funzione per svuotare il carrello
   function clearCart() {
     cart = [];
     localStorage.removeItem("cart");
