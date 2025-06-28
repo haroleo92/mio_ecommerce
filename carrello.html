@@ -12,26 +12,24 @@
 
   <script>
     function loadCart() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const cartDiv = document.getElementById('cart');
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartDiv = document.getElementById('cart');
+  if (cart.length === 0) {
+    cartDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
+    return;
+  }
 
-      if (cart.length === 0) {
-        cartDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
-        return;
-      }
+  let html = "<ul>";
+  let totale = 0;
+  cart.forEach(item => {
+    const subTotale = item.prezzo * item.quantita;
+    html += `<li>${item.nome} – ${item.quantita}x – ${subTotale}€</li>`;
+    totale += subTotale;
+  });
+  html += `</ul><p><strong>Totale: ${totale}€</strong></p>`;
+  cartDiv.innerHTML = html;
+}
 
-      let html = "<ul>";
-      let totale = 0;
-
-      cart.forEach(item => {
-        const subTotale = item.prezzo * (item.quantita || 1);
-        html += `<li>${item.nome} – ${item.quantita || 1}x – ${subTotale}€</li>`;
-        totale += subTotale;
-      });
-
-      html += `</ul><p><strong>Totale: ${totale}€</strong></p>`;
-      cartDiv.innerHTML = html;
-    }
 
     function clearCart() {
       localStorage.removeItem('cart');
