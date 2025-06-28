@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Il Mio E-commerce</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    .checkout-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .order-summary {
+      margin-top: 20px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    .success-message {
+      text-align: center;
+      color: green;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-container">
+    <h1>Checkout</h1>
+
+    <form id="checkout-form">
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" required>
+
+      <label for="indirizzo">Indirizzo di spedizione:</label>
+      <textarea id="indirizzo" rows="3" required></textarea>
+
+      <div class="order-summary" id="order-summary"></div>
+
+      <button type="submit">Conferma pagamento</button>
+    </form>
+
+    <div class="success-message" id="success-message" style="display:none;">
+      ✅ Pagamento completato! Grazie per il tuo ordine.
+    </div>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderOrderSummary() {
+      const summaryDiv = document.getElementById("order-summary");
+
+      if (cart.length === 0) {
+        summaryDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
+        return;
+      }
+
+      let html = "<h3>Riepilogo ordine:</h3><ul>";
+      let total = 0;
+
+      cart.forEach(item => {
+        const subTotal = item.prezzo * item.quantita;
+        html += `<li>${item.nome} - ${item.quantita}x - ${subTotal.toFixed(2).replace('.', ',')}€</li>`;
+        total += subTotal;
+      });
+
+      html += `</ul><p><strong>Totale:</strong> ${total.toFixed(2).replace('.', ',')}€</p>`;
+      summaryDiv.innerHTML = html;
+    }
+
+    document.getElementById("checkout-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Simulazione "invio ordine"
+      const nome = document.getElementById("nome").value;
+      const indirizzo = document.getElementById("indirizzo").value;
+
+      if (!nome || !indirizzo) return;
+
+      // Svuota carrello dopo pagamento
+      localStorage.removeItem("cart");
+
+      // Mostra conferma
+      document.getElementById("checkout-form").style.display = "none";
+      document.getElementById("success-message").style.display = "block";
+    });
+
+    renderOrderSummary();
+  </script>
+</body>
+</html>
