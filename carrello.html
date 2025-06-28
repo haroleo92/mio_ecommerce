@@ -2,42 +2,50 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Il tuo carrello</title>
+  <title>Il Mio Carrello</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Carrello</h1>
-  <div id="cart"></div>
-  <button onclick="clearCart()">Svuota carrello</button>
+  <h1>Il tuo Carrello</h1>
+
+  <p style="text-align: center;">
+    <a href="index.html">Torna allo shop</a>
+  </p>
+
+  <div class="cart-container">
+    <div class="cart" id="cart">
+      <ul id="cart-items"></ul>
+      <p><strong>Totale:</strong> <span id="total">0</span>€</p>
+      <button onclick="clearCart()">Svuota carrello</button>
+    </div>
+  </div>
 
   <script>
-    function loadCart() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartDiv = document.getElementById('cart');
-  if (cart.length === 0) {
-    cartDiv.innerHTML = "<p>Il carrello è vuoto.</p>";
-    return;
-  }
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  let html = "<ul>";
-  let totale = 0;
-  cart.forEach(item => {
-    const subTotale = item.prezzo * item.quantita;
-    html += `<li>${item.nome} – ${item.quantita}x – ${subTotale}€</li>`;
-    totale += subTotale;
-  });
-  html += `</ul><p><strong>Totale: ${totale}€</strong></p>`;
-  cartDiv.innerHTML = html;
-}
+    function updateCart() {
+      const cartItems = document.getElementById("cart-items");
+      cartItems.innerHTML = '';
+      let total = 0;
 
+      cart.forEach(item => {
+        const subtotal = item.prezzo * item.quantita;
+        const li = document.createElement("li");
+        li.textContent = `${item.nome} – ${item.quantita}x – ${subtotal.toFixed(2).replace('.', ',')}€`;
+        cartItems.appendChild(li);
+        total += subtotal;
+      });
 
-    function clearCart() {
-      localStorage.removeItem('cart');
-      loadCart();
+      document.getElementById("total").textContent = total.toFixed(2).replace('.', ',');
     }
 
-    loadCart();
+    function clearCart() {
+      cart = [];
+      localStorage.removeItem("cart");
+      updateCart();
+    }
+
+    updateCart();
   </script>
 </body>
 </html>
-
