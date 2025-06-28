@@ -33,28 +33,28 @@
 
   <!-- Lista dei prodotti -->
   <div class="product-container">
-    <div class="product" data-nome="Scarpe da ginnastica">
-      <img src="scarpe.jpg.jpg" alt="Scarpe" width="200">
+    <div class="product" data-nome="Scarpe da ginnastica" data-prezzo="50">
+    <img src="scarpe.jpg.jpg" alt="Scarpe" width="200">
       <h2>Scarpe da ginnastica</h2>
       <p>Prezzo: 50€</p>
       <button onclick="addToCart('Scarpe da ginnastica', 50)">Aggiungi al carrello</button>
     </div>
 
-    <div class="product" data-nome="Cappello">
+    <div class="product" data-nome="Cappello" data-prezzo="10">
       <img src="cappello.jpg.jpg" alt="Cappello" width="200">
       <h3>Cappello</h3>
       <p>Prezzo: 10€</p>
       <button onclick="addToCart('Cappello', 10)">Aggiungi al carrello</button>
     </div>
 
-    <div class="product" data-nome="Occhiali da sole">
+    <div class="product" data-nome="Occhiali da sole" data-prezzo="30">
       <img src="occhiali.jpg.jpg" alt="Occhiali" width="200">
       <h4>Occhiali da sole</h4>
       <p>Prezzo: 30€</p>
       <button onclick="addToCart('Occhiali da sole', 30)">Aggiungi al carrello</button>
     </div>
 
-    <div class="product" data-nome="Felpa">
+    <div class="product" data-nome="Felpa" data-prezzo="25">
       <img src="felpa.jpg.jpg" alt="Felpa" width="200">
       <h5>Felpa</h5>
       <p>Prezzo: 25€</p>
@@ -117,7 +117,9 @@
 
   products.forEach(product => {
     const nome = product.getAttribute("data-nome").toLowerCase();
-    if (nome.includes(searchTerm)) {
+    const prezzo = product.getAttribute("data-prezzo");
+
+    if (nome.includes(searchTerm) || prezzo.includes(searchTerm)) {
       product.style.display = "block";
     } else {
       product.style.display = "none";
