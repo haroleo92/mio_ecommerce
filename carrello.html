@@ -2,50 +2,94 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Il Mio Carrello</title>
+  <title>Il tuo carrello</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .cart {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .totale {
+      text-align: right;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #d9534f;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #c9302c;
+    }
+  </style>
 </head>
 <body>
-  <h1>Il tuo Carrello</h1>
-
-  <p style="text-align: center;">
-    <a href="index.html">Torna allo shop</a>
-  </p>
-
-  <div class="cart-container">
-    <div class="cart" id="cart">
-      <ul id="cart-items"></ul>
-      <p><strong>Totale:</strong> <span id="total">0</span>€</p>
-      <button onclick="clearCart()">Svuota carrello</button>
-    </div>
+  <h1>Il tuo carrello</h1>
+  <div class="cart" id="cart-container">
+    <!-- Carrello generato dinamicamente -->
   </div>
 
   <script>
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const container = document.getElementById("cart-container");
 
-    function updateCart() {
-      const cartItems = document.getElementById("cart-items");
-      cartItems.innerHTML = '';
-      let total = 0;
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Il carrello è vuoto.</p>";
+        return;
+      }
+
+      let html = "<ul>";
+      let totale = 0;
 
       cart.forEach(item => {
-        const subtotal = item.prezzo * item.quantita;
-        const li = document.createElement("li");
-        li.textContent = `${item.nome} – ${item.quantita}x – ${subtotal.toFixed(2).replace('.', ',')}€`;
-        cartItems.appendChild(li);
-        total += subtotal;
+        const subTotale = item.prezzo * item.quantita;
+        totale += subTotale;
+        html += `<li>${item.nome} – ${item.quantita}x – ${subTotale.toFixed(2).replace('.', ',')}€</li>`;
       });
 
-      document.getElementById("total").textContent = total.toFixed(2).replace('.', ',');
+      html += `</ul><p class="totale">Totale: ${totale.toFixed(2).replace('.', ',')}€</p>`;
+      html += `<button onclick="clearCart()">Svuota carrello</button>`;
+      container.innerHTML = html;
     }
 
     function clearCart() {
-      cart = [];
       localStorage.removeItem("cart");
-      updateCart();
+      loadCart();
     }
 
-    updateCart();
+    // Caricamento iniziale
+    loadCart();
   </script>
 </body>
 </html>
+
