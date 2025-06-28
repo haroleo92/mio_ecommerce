@@ -79,28 +79,36 @@
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     // 2. Funzione che aggiorna la lista visuale del carrello
-    function updateCart() {
-      let cartItems = document.getElementById("cart-items");
-      cartItems.innerHTML = '';
-      let total = 0;
+   function updateCart() {
+  let cartItems = document.getElementById("cart-items");
+  cartItems.innerHTML = '';
+  let total = 0;
+  cart.forEach(item => {
+    const subtotal = item.prezzo * item.quantita;
+    let li = document.createElement("li");
+    li.textContent = `${item.nome} - ${item.quantita}x - ${subtotal}€`;
+    cartItems.appendChild(li);
+    total += subtotal;
+  });
+  document.getElementById("total").textContent = total;
+}
 
-      cart.forEach(item => {
-        let li = document.createElement("li");
-        li.textContent = item.nome + " - " + item.prezzo + "€";
-        cartItems.appendChild(li); // AGGIUNGE l'elemento alla lista
-        total += item.prezzo;
-      });
-
-      // Mostra il totale con 2 cifre decimali
+    // Mostra il totale con 2 cifre decimali
       document.getElementById("total").textContent = total.toFixed(2).replace('.', ',');
     }
 
     // 3. Aggiunge un prodotto al carrello
     function addToCart(nome, prezzo) {
-      cart.push({ nome, prezzo, quantita: 1 });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCart();
-    }
+  // Controlla se l'articolo esiste già nel carrello
+  const existingItem = cart.find(item => item.nome === nome);
+  if (existingItem) {
+    existingItem.quantita += 1;
+  } else {
+    cart.push({ nome, prezzo, quantita: 1 });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
 
     // 4. Svuota completamente il carrello
     function clearCart() {
