@@ -23,16 +23,13 @@
 </head>
 <body>
   <h1>Benvenuto nel mio negozio!</h1>
-  
+
   <!-- Link alla pagina carrello.html -->
   <p style="text-align: center;">
     <a href="carrello.html">Vai al carrello</a>
   </p>
 
-  <!-- Lista prodotti -->
-  <div id="product-list" class="product-container"></div>
-
-  <!-- Prodotti inseriti manualmente -->
+  <!-- Lista dei prodotti -->
   <div class="product-container">
     <div class="product">
       <img src="scarpe.jpg.jpg" alt="Scarpe" width="200">
@@ -63,64 +60,54 @@
     </div>
   </div>
 
-  <!-- Carrello visualizzato nella stessa pagina -->
+  <!-- Carrello visualizzato sulla stessa pagina -->
   <div class="cart-container">
     <div class="cart" id="cart">
       <h6>Carrello</h6>
       <ul id="cart-items"></ul>
-      <p><strong>Totale:</strong> <span id="total">0</span>€</p>
+      <p><strong>Totale:</strong> <span id="total">0,00</span>€</p>
       <button onclick="clearCart()">Svuota carrello</button>
     </div>
   </div>
 
-  <!-- Script per la logica JS -->
+  <!-- JavaScript per gestire il carrello -->
   <script>
-    // 1. Carico il carrello dal localStorage (se esiste)
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // 2. Funzione che aggiorna la lista visuale del carrello
-   function updateCart() {
-  let cartItems = document.getElementById("cart-items");
-  cartItems.innerHTML = '';
-  let total = 0;
-  cart.forEach(item => {
-    const subtotal = item.prezzo * item.quantita;
-    let li = document.createElement("li");
-    li.textContent = `${item.nome} - ${item.quantita}x - ${subtotal}€`;
-    cartItems.appendChild(li);
-    total += subtotal;
-  });
-  document.getElementById("total").textContent = total;
-}
+    function updateCart() {
+      let cartItems = document.getElementById("cart-items");
+      cartItems.innerHTML = '';
+      let total = 0;
 
-    // Mostra il totale con 2 cifre decimali
+      cart.forEach(item => {
+        const subtotal = item.prezzo * item.quantita;
+        let li = document.createElement("li");
+        li.textContent = `${item.nome} - ${item.quantita}x - ${subtotal}€`;
+        cartItems.appendChild(li);
+        total += subtotal;
+      });
+
       document.getElementById("total").textContent = total.toFixed(2).replace('.', ',');
     }
 
-    // 3. Aggiunge un prodotto al carrello
     function addToCart(nome, prezzo) {
-  // Controlla se l'articolo esiste già nel carrello
-  const existingItem = cart.find(item => item.nome === nome);
-  if (existingItem) {
-    existingItem.quantita += 1;
-  } else {
-    cart.push({ nome, prezzo, quantita: 1 });
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCart();
-}
+      const existingItem = cart.find(item => item.nome === nome);
+      if (existingItem) {
+        existingItem.quantita += 1;
+      } else {
+        cart.push({ nome, prezzo, quantita: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCart();
+    }
 
-    // 4. Svuota completamente il carrello
     function clearCart() {
       cart = [];
       localStorage.removeItem("cart");
       updateCart();
     }
 
-    // 5. Carica il carrello all’apertura della pagina
     updateCart();
   </script>
 </body>
 </html>
-
-  
