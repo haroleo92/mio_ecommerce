@@ -2,21 +2,21 @@
   {
     "nome": "Felpa",
     "prezzo": 35,
-    "immagine": "felpa.jpg"
+    "immagine": "images/felpa.jpg"
   },
   {
     "nome": "Scarpe da ginnastica",
     "prezzo": 50,
-    "immagine": "scarpe.jpg"
+    "immagine": "images/scarpe.jpg"
   },
   {
     "nome": "Occhiali da sole",
     "prezzo": 50,
-    "immagine": "occhiali.jpg"
+    "immagine": "images/occhiali.jpg"
   },
   {
     "nome": "Cappello",
     "prezzo": 50,
-    "immagine": "cappello.jpg"
+    "immagine": "images/cappello.jpg"
   }
 ]
